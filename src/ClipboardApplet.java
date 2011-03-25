@@ -1,13 +1,16 @@
 /*
-	ClipboardApplet.
-	Copy text from an HTML element into the system clipboard.
+ClipboardApplet.
+Copy text from an HTML element into the system clipboard.
 	
-	This is done via the Java Network Launching Protocol (JNLP),
-	as applets run in a sandboxed execution environment.
+This is done via the Java Network Launching Protocol (JNLP),
+as applets run in a sandboxed execution environment 
+and this applet needs access to the system clipboard.
 	
-	Copyright (c) 2011 Sam Saint-Pettersen.
-	Released under the MIT/X11 License.
+Copyright (c) 2011 Sam Saint-Pettersen.
+Released under the MIT/X11 License.
 */
+package org.stpettersens.cbapplet;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -18,8 +21,6 @@ import javax.jnlp.UnavailableServiceException;
 
 public class ClipboardApplet extends JApplet {
 
-	static public ClipboardService sysClipboard = null;
-	
 	public void init() {
 		try {
 			SwingUtilities.invokeAndWait(new Runnable() {
@@ -29,30 +30,35 @@ public class ClipboardApplet extends JApplet {
 					add(copyButton);
 				}
 			});
-  			try {
-  				sysClipboard = (ClipboardService) ServiceManager.lookup
-  				("javax.jlnp.ClipboardService");
-  			}
-  			catch(UnavailableServiceException use) {
-  				System.err.println(use);
-  				sysClipboard = null;
-  			}
 		}
 		catch(Exception e) {
-			System.err.println("Error initializing ClipboardApplet UI.");
+			System.err.println("Error initializing ClipboardApplet.");
 		}
 	}	
 	
 	public class CopyToClipboard implements ActionListener {
+		
+		ClipboardService sysClipboard = null;
 		JFrame frame = new JFrame("ClipboardApplet");
+		
 		public void actionPerformed(ActionEvent e) {
-			writeToClipboard();
-			JOptionPane.showMessageDialog(frame, "Copied to clipboard.");
+		
+			try {
+  				sysClipboard = (ClipboardService) ServiceManager.lookup
+				("javax.jnlp.ClipboardService");
+				writeToClipboard();
+  			}
+  			catch(UnavailableServiceException use) {
+  				System.err.println(use);
+  				sysClipboard = null;
+  			}		
 		}
 		
 		public void writeToClipboard() {
-			Transferable copiedText = new StringSelection("ClipboardApplet text.");
+		
+			Transferable copiedText = new StringSelection("I don't not hit her... Oh hai, Mark."); // :P
 			sysClipboard.setContents(copiedText);
+			JOptionPane.showMessageDialog(frame, "Copied text to clipboard.");
 		}
 	}
 }

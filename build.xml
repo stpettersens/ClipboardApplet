@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Apache Ant buildfile to build ClipboardApplet. -->
+<project name="ClipboadApplet" default="build" basedir=".">
+	
+	<description>ClipboardApplet buildfile for Ant</description>
+	
+	<!-- Targets -->
+	<target name="build" depends="package" description="Build complete project"/>
+	
+	<target name="clean" depends="init" description="Clean up any built files">
+		<delete dir="${build.dir}" includeemptydirs="true" quiet="true"/>
+	</target>
+	
+	<target name="init">				
+		<!-- Variables for paths and files -->
+		<property name="app.name" value="ClipboardApplet"/>
+		<property name="src.dir" location="${basedir}/src"/>
+		<property name="build.dir" location="${basedir}/ant_build"/>
+		<property name="demo.dir" location="${basedir}/demo"/>
+		<property name="target.jar" value="${demo.dir}/${app.name}.jar"/>
+		<property name="src.mf" value="${src.dir}/Manifest.mf"/>
+		<property name="src.jnlp" value="${src.dir}/${app.name}.jnlp"/>
+		<property name="java.ws" value="${src.dir}/javaws.jar"/>
+	</target>
+	
+	<target name="compile" description="Compile source code to classes" depends="init" 
+	 unless="build.uptodate">
+		<echo message="Compiling ${app.name}..."/>
+		<mkdir dir="${build.dir}"/>
+		<javac includeantruntime="false" classpath="${java.ws}"
+		srcdir="${src.dir}" destdir="${build.dir}"/>
+	</target>
+	
+	<target name="package" description="Package the compiled classes into a Jar" depends="compile"
+	 unless="build.uptodate">
+	 	<echo message="Packaging ${app.name}..."/>
+	 	<jar manifest="${src.mf}" destfile="${target.jar}">
+	 		<fileset dir="${build.dir}"/>
+	 	</jar>
+		<copy file="${src.jnlp}" todir="${demo.dir}"/>
+	</target>
+	
+</project>

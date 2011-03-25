@@ -1,1 +1,17 @@
-<applet code="ClipboardApplet.class" width="200" height="20"/>
+<html>
+<head>
+<title>Demonstrate ClipboardApplet</title>
+<script type="text/javascript" src="http://www.java.com/js/deployJava.js"></script>
+</head>
+<body>
+<pre id="copyme">Some text to copy.</pre>
+<script type="text/javascript">
+	   /* The following code is dependent on deployJava.js */
+       var attributes = { code:'org.stpettersens.cbapplet.ClipboardApplet', 
+	   archive:'ClipboardApplet.jar', width:200, height:20};
+	   var parameters = { toCopy: 'copyMe', jnlp_href:'ClipboardApplet.jnlp'};
+	   var minimumVersion = '1.6.0';
+	   deployJava.runApplet(attributes, parameters, minimumVersion);
+</script>
+</body>
+</html>
