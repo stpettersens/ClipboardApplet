@@ -3,12 +3,8 @@ ClipboardApplet.
 Copy text from an HTML element into the system clipboard.
 	
 This is done via the Java Network Launching Protocol (JNLP),
-<<<<<<< HEAD
 as applets run in a sandboxed execution environment 
 and this applet needs access to the system clipboard.
-=======
-as applets run in a sandboxed execution environment.
->>>>>>> 0e82485b1c9a8c5422d0dd69314d95ce4a6caa45
 	
 Copyright (c) 2011 Sam Saint-Pettersen.
 Released under the MIT/X11 License.
@@ -60,11 +56,7 @@ public class ClipboardApplet extends JApplet {
 		
 		public void writeToClipboard() {
 		
-<<<<<<< HEAD
-			Transferable copiedText = new StringSelection("I don't not hit her... Oh hai, Mark."); // :P
-=======
 			Transferable copiedText = new StringSelection("ClipboardApplet text.");
->>>>>>> 0e82485b1c9a8c5422d0dd69314d95ce4a6caa45
 			sysClipboard.setContents(copiedText);
 			JOptionPane.showMessageDialog(frame, "Copied text to clipboard.");
 		}
