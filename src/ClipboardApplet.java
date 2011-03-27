@@ -65,7 +65,9 @@ public class ClipboardApplet extends JApplet {
 		
 			Transferable copiedText = new StringSelection(getText());
 			sysClipboard.setContents(copiedText);
-			JOptionPane.showMessageDialog(frame, "Copied text to clipboard.");
+			JOptionPane.showMessageDialog
+			(frame, "Copied text to clipboard.", "ClipboardApplet",
+			JOptionPane.INFORMATION_MESSAGE);
 		}
 		
 		private String getText() {
