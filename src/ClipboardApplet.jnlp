@@ -11,5 +11,5 @@
      </resources>
      <applet-desc name="ClipboardApplet" 
 	 main-class="org.stpettersens.cbapplet.ClipboardApplet" 
-	 width="200" height="20" />
+	 width="200" height="20" mayscript="true" />
 </jnlp>

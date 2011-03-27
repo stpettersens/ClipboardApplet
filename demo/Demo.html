@@ -9,7 +9,7 @@
 	   /* The following code is dependent on deployJava.js */
        var attributes = { code:'org.stpettersens.cbapplet.ClipboardApplet', 
 	   archive:'ClipboardApplet.jar', width:200, height:20};
-	   var parameters = { toCopy: 'copyMe', jnlp_href:'ClipboardApplet.jnlp'};
+	   var parameters = { mayscript: 'true', tocopy: 'copyme', jnlp_href:'ClipboardApplet.jnlp'};
 	   var minimumVersion = '1.6.0';
 	   deployJava.runApplet(attributes, parameters, minimumVersion);
 </script>

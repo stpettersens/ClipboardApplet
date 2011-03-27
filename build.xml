@@ -21,13 +21,14 @@
 		<property name="src.mf" value="${src.dir}/Manifest.mf"/>
 		<property name="src.jnlp" value="${src.dir}/${app.name}.jnlp"/>
 		<property name="java.ws" value="${src.dir}/javaws.jar"/>
+		<property name="plugin.jar" value="${src.dir}/plugin.jar"/>
 	</target>
 	
 	<target name="compile" description="Compile source code to classes" depends="init" 
 	 unless="build.uptodate">
 		<echo message="Compiling ${app.name}..."/>
 		<mkdir dir="${build.dir}"/>
-		<javac includeantruntime="false" classpath="${java.ws}"
+		<javac includeantruntime="false" classpath="${java.ws};${plugin.jar}"
 		srcdir="${src.dir}" destdir="${build.dir}"/>
 	</target>
 	

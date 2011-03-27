@@ -11,17 +11,24 @@ Released under the MIT/X11 License.
 */
 package org.stpettersens.cbapplet;
 
-import javax.swing.*;
+import netscape.javascript.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.datatransfer.*;
+import javax.swing.*;
 import javax.jnlp.ServiceManager;
 import javax.jnlp.ClipboardService;
 import javax.jnlp.UnavailableServiceException;
 
 public class ClipboardApplet extends JApplet {
 
+	public JSObject win;
+	public String toCopy;
+	
 	public void init() {
+	
+		win = JSObject.getWindow(this);
+		toCopy = this.getParameter("tocopy");
 		try {
 			SwingUtilities.invokeAndWait(new Runnable() {
 				public void run() {
@@ -54,11 +61,17 @@ public class ClipboardApplet extends JApplet {
   			}		
 		}
 		
-		public void writeToClipboard() {
+		private void writeToClipboard() {
 		
-			Transferable copiedText = new StringSelection("ClipboardApplet text.");
+			Transferable copiedText = new StringSelection(getText());
 			sysClipboard.setContents(copiedText);
 			JOptionPane.showMessageDialog(frame, "Copied text to clipboard.");
+		}
+		
+		private String getText() {
+	
+			return (String) win.eval(
+			String.format("document.getElementById('%s').innerHTML;", toCopy));
 		}
 	}
 }
